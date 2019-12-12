@@ -2,9 +2,12 @@
 #ifndef UNTITLED24_STACK_H
 #define UNTITLED24_STACK_H
 
+#include <iostream>
 #include <cstddef>
 #include <stdexcept>
+
 using std::cout;
+using std::endl;
 using std::out_of_range;
 
 template<typename T>
@@ -13,10 +16,11 @@ class Stack {
 
     class Node {
         friend class Stack;
+
         const T value_;
         Node *next_ = nullptr;
 
-        Node(T value) : value_(value) {}
+        explicit Node(T value) : value_(value) {}
     };
 
     size_t size_ = 0;
@@ -42,7 +46,7 @@ public:
     T pop() {
         Node *removed = first_;
         if (removed == nullptr) {
-            throw out_of_range("This stack is empty"); // NOLINT(cert-err60-cpp)
+            throw out_of_range("This stack is empty");
         }
 
         first_ = removed->next_;
@@ -57,14 +61,18 @@ public:
         return size_;
     };
 
-    void print(){
+    void print() {
         Node *node = first_;
-        while (node != nullptr) {
-            //Node *next = node->next_;
-            cout<<node->value_;
-            node = node->next_;
+        if (node == nullptr) {
+            throw out_of_range("This stack is empty");
         }
 
+        while (node != nullptr) {
+            //Node *next = node->next_;
+            cout << node->value_ << ' ';
+            node = node->next_;
+        }
+        cout << endl;
     }
 
 };
