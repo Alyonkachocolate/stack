@@ -63,10 +63,6 @@ public:
 
     void print() {
         Node *node = first_;
-        if (node == nullptr) {
-            throw out_of_range("This stack is empty");
-        }
-
         while (node != nullptr) {
             //Node *next = node->next_;
             cout << node->value_ << ' ';

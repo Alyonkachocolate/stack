@@ -38,7 +38,7 @@ public:
 
     void push(T value) {
         Node *node = new Node(value);
-        if (first_ = last_ = nullptr) {
+        if (first_ == nullptr) {
             node->next_ = first_;
             first_ = last_ = node;
         } else {
@@ -49,20 +49,21 @@ public:
     }
 
     T pop() {
-        Node *removed;
-        Node *node = first_;
-        while (node != last_) {
-            Node removed = node;
-            node = node->next;
-        };
-        if (removed == nullptr) {
+        Node *removed = nullptr;
+        if (first_ == nullptr) {
             throw out_of_range("This stack is empty");
         }
-        if (size_ = 1) {
+        Node *node = first_;
+        while (node != last_) {
+            removed = node;
+            node = node->next_;
+        };
+        if (size_ == 1) {
             first_ = last_ = nullptr;
         }
+        Node *n1 = last_;
+        T value = n1->value_;
         last_ = removed;
-        T value = removed->value_;
         delete removed;
         size_--;
 
@@ -75,10 +76,6 @@ public:
 
     void print() {
         Node *node = first_;
-        if (node == nullptr) {
-            throw out_of_range("This stack is empty");
-        }
-
         while (node != nullptr) {
             //Node *next = node->next_;
             cout << node->value_ << ' ';
